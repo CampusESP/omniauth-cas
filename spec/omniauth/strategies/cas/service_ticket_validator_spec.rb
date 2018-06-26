@@ -8,8 +8,7 @@ describe OmniAuth::Strategies::CAS::ServiceTicketValidator do
   end
   let(:provider_options) do
     double('provider_options',
-      disable_ssl_verification?: false,
-      ca_path: '/etc/ssl/certsZOMG'
+      disable_ssl_verification?: false
     )
   end
   let(:validator) do
@@ -26,6 +25,12 @@ describe OmniAuth::Strategies::CAS::ServiceTicketValidator do
 
     it 'returns itself' do
       expect(subject).to eq validator
+    end
+
+    describe 'https certs' do
+      after { subject }
+
+      specify { expect(Dir).to receive(:[]).with('etc/ssl/certs/*').and_call_original }
     end
   end
 
