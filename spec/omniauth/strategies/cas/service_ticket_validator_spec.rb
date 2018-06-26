@@ -27,11 +27,6 @@ describe OmniAuth::Strategies::CAS::ServiceTicketValidator do
     it 'returns itself' do
       expect(subject).to eq validator
     end
-
-    it 'uses the configured CA path' do
-      subject
-      expect(provider_options).to have_received :ca_path
-    end
   end
 
   describe '#user_info' do
